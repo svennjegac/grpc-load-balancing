@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ip-service-server
+spec:
+  # headless service
+  clusterIP: None
+  ports:
+  - name: tcp
+    port: 8000
+  selector:
+    app: ip-service-server
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ip-service-server
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: ip-service-server
+    spec:
+      containers:
+      - name: ip-service-server
+        image: gcr.io/sandbox-269511/ip-service-server:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: MAX_CONNECTION_IDLE_MS
+          value: "3600000" # 1 hour
+        - name: MAX_CONNECTION_AGE_MS
+          value: "120000" # 2 min
+        - name: MAX_CONNECTION_AGE_GRACE_MS
+          value: "5000" # 5 sec
+        - name: TIME_MS
+          value: "3600000" # 1 hour
+        - name: TIMEOUT_MS
+          value: "20000" # 20 sec
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: SERVER_PORT
+          value: "8000"
+        - name: GRPC_GO_LOG_VERBOSITY_LEVEL
+          value: "99"
+        - name: GRPC_GO_LOG_SEVERITY_LEVEL
+          value: "info"
