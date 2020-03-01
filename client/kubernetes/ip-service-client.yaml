@@ -24,7 +24,7 @@ spec:
           image: gcr.io/sandbox-269511/ip-service-client:latest
           env:
           - name: IP_SERVICE_TARGET
-            value: "dns:///ip-service-server.default.svc.cluster.local:8000"
+            value: "dns:///ip-service-server.default.svc.cluster.local:9090"
           - name: DEFAULT_SERVICE_CONFIG
             value: "{\"loadBalancingPolicy\":\"round_robin\"}"
           - name: POD_IP
@@ -36,7 +36,7 @@ spec:
           - name: REQUEST_TIMEOUT_MS
             value: "2000"
           - name: IN_BETWEEN_REQUEST_WAIT_MS
-            value: "400"
+            value: "2000"
           - name: GRPC_GO_LOG_VERBOSITY_LEVEL
             value: "99"
           - name: GRPC_GO_LOG_SEVERITY_LEVEL
