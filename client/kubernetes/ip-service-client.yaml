@@ -6,21 +6,21 @@ spec:
   # headless service
   clusterIP: None
   selector:
-    app: ip-service-client
+    app: ip-service-client-pod-selector
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: ip-service-client
+  name: ip-service-client-deployment
 spec:
   replicas: 3
   template:
     metadata:
       labels:
-        app: ip-service-client
+        app: ip-service-client-pod-selector
     spec:
       containers:
-        - name: ip-service-client
+        - name: ip-service-client-container-name
           image: gcr.io/sandbox-269511/ip-service-client:latest
           env:
           - name: IP_SERVICE_TARGET
