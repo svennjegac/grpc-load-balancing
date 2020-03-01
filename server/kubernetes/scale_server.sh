@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # scale server
-kubectl scale deployment ip-service-server --replicas=2
+kubectl scale deployment ip-service-server-deployment --replicas=2

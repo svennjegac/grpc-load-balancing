@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # scale client
-kubectl scale deployment ip-service-client --replicas=2
+kubectl scale deployment ip-service-client-deployment --replicas=2
